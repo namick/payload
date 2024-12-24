@@ -399,6 +399,7 @@ export interface FieldBase {
   admin?: Admin
   /** Extension point to add your custom data. Server only. */
   custom?: Record<string, any>
+  dbColumnName?: string
   defaultValue?: DefaultValue
   hidden?: boolean
   hooks?: {
@@ -662,7 +663,10 @@ export type RowField = {
   admin?: Omit<Admin, 'description'>
   fields: Field[]
   type: 'row'
-} & Omit<FieldBase, 'admin' | 'label' | 'localized' | 'name' | 'validate' | 'virtual'>
+} & Omit<
+  FieldBase,
+  'admin' | 'dbColumnName' | 'label' | 'localized' | 'name' | 'validate' | 'virtual'
+>
 
 export type RowFieldClient = {
   admin?: Omit<AdminClient, 'description'>
@@ -701,7 +705,7 @@ export type CollapsibleField = {
       label: Required<FieldBase['label']>
     }
 ) &
-  Omit<FieldBase, 'label' | 'localized' | 'name' | 'validate' | 'virtual'>
+  Omit<FieldBase, 'dbColumnName' | 'label' | 'localized' | 'name' | 'validate' | 'virtual'>
 
 export type CollapsibleFieldClient = {
   admin?: {
@@ -743,7 +747,7 @@ export type UnnamedTab = {
     | LabelFunction
     | string
   localized?: never
-} & Omit<TabBase, 'name' | 'virtual'>
+} & Omit<TabBase, 'dbColumnName' | 'name' | 'virtual'>
 
 export type Tab = NamedTab | UnnamedTab
 
